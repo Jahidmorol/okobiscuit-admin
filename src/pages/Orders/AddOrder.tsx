@@ -1,11 +1,10 @@
 import { Divider } from "antd";
-import { LuCornerRightUp } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import AddUserForm from "../../components/Users/AddUserForm";
+import { LuCornerRightUp } from "react-icons/lu";
 import { getUserInfo } from "../../utils/localStorageAuthManagemet";
 import { verifyToken } from "../../utils/verifyToken";
 
-const AddUser = () => {
+const AddOrder = () => {
   const token = getUserInfo();
   let user: Record<string, unknown> | undefined;
   if (token !== null && typeof token === "string") {
@@ -16,35 +15,33 @@ const AddUser = () => {
       <section className="flex items-center justify-between">
         <div className="text-base flex items-center gap-2 md:gap-3">
           <Link to="/" className="text-primary">
-            OkoBiscuit
+            Oko Biscuit
           </Link>
           <span>/</span>
-          <span>Add User</span>
+          <span>Add Order</span>
         </div>
         <Link
-          to={`/${user?.role || "admin"}/users`}
+          to={`/${user?.role}/all-orders`}
           className="flex items-center gap-2 bg-primary hover:bg-accent text-white hover:text-white px-4 py-2.5 rounded-lg transition duration-150"
-          title="All Doctors"
+          title="All Order"
         >
-          <span>All Users</span>
+          <span>All Order</span>
           <LuCornerRightUp />
         </Link>
       </section>
-      <section className="bg-white/40 bg-blend-color-burn border p-3 md:p-8 my-10 rounded-xl w-full max-w-[800px] mx-auto">
+      <section className="bg-white/40 bg-blend-color-burn border p-3 md:p-8 my-10 rounded-xl w-full max-w-[900px] mx-auto">
         <div className=" text-center">
-          <h2 className="text-primary text-xl font-semibold">User Add Form</h2>
-          <Divider plain>Add New User</Divider>
-          {/* <p>
+          <h2 className="text-primary text-xl font-semibold">Order Add Form</h2>
+          <Divider plain>Add new Order</Divider>
+          <p>
             If already added on quick addition form. do not add here again. just
-            edit that from the doctor list
-          </p> */}
+            edit that from the Order list
+          </p>
         </div>
-        <div className="mt-8 md:mt-10">
-          <AddUserForm />
-        </div>
+        <div className="mt-8 md:mt-10">{/* <ProductAddForm /> */}</div>
       </section>
     </>
   );
 };
 
-export default AddUser;
+export default AddOrder;
