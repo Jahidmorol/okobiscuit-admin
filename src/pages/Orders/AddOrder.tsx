@@ -1,4 +1,3 @@
-import { Divider } from "antd";
 import { Link } from "react-router-dom";
 import { LuCornerRightUp } from "react-icons/lu";
 import { getUserInfo } from "../../utils/localStorageAuthManagemet";

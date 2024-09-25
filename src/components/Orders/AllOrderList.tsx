@@ -16,19 +16,24 @@ import {
   useDeleteOrderMutation,
   useGetAllOrderQuery,
 } from "../../redux/features/order/orderApi";
-// import UpdateOrder from "./UpdateOrder";
+import { handlePrint } from "./Orders.constant";
 
 const AllOrderList = () => {
   const [params, setParams] = useState([{ name: "limit", value: 10 }]);
-  const [updateModalOpen, setUpdateModalOpen] = useState(false);
-  const [orderData, setOrderData] = useState<TOrderFormValues | null>(null);
   const { data, isLoading } = useGetAllOrderQuery(params);
   const [deleteOrder] = useDeleteOrderMutation();
-
-  const handleUpdateOrder = (order: TOrderFormValues) => {
-    setUpdateModalOpen(true);
-    setOrderData(order);
-  };
+  // const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  // const [orderData, setOrderData] = useState<TOrderFormValues | null>(null);
+  // const [invoiceModalOpen, setInvoiceModalOpen] = useState(false);
+  // const [orderData, setOrderData] = useState<TOrderFormValues | null>(null);
+  // const handleUpdateOrder = (order: TOrderFormValues) => {
+  //   setUpdateModalOpen(true);
+  //   setOrderData(order);
+  // };
+  // const showInvoice = (order: TOrderFormValues) => {
+  //   setOrderData(order);
+  //   setInvoiceModalOpen(true);
+  // };
 
   const handleDeleteOrder = async (id: string) => {
     const toastId = toast.loading("Deleting order...");
@@ -79,10 +84,10 @@ const AllOrderList = () => {
       dataIndex: "action",
       align: "center",
       fixed: "right",
-      width: 150,
+      width: 200, // Adjusted width to fit the new button
       render: (_, record: TOrderFormValues) => (
         <div className="flex justify-center gap-2">
-          <Button onClick={() => handleUpdateOrder(record)}>Update</Button>
+          {/* <Button onClick={() => handleUpdateOrder(record)}>Update</Button> */}
           <Popconfirm
             title="Delete this order?"
             onConfirm={() => handleDeleteOrder(record._id)}
@@ -93,6 +98,7 @@ const AllOrderList = () => {
               <AiFillDelete fontSize={16} />
             </Button>
           </Popconfirm>
+          <Button onClick={() => handlePrint(record)}>Print</Button>{" "}
         </div>
       ),
     },
@@ -119,9 +125,9 @@ const AllOrderList = () => {
         </div>
         <div className="w-[250px]">
           <Input
-            type="primary"
+            type="text"
             placeholder="Search"
-            onChange={(e) =>
+            onChange={(e: any) =>
               setParams([
                 { name: "searchTerm", value: e.target.value },
                 { name: "limit", value: 10 },
@@ -140,6 +146,13 @@ const AllOrderList = () => {
         meta={meta}
         handlePaginationChange={handlePaginationChange}
       />
+      {/* {orderData && (
+        <OrderInvoice
+          invoiceModalOpen={invoiceModalOpen}
+          setInvoiceModalOpen={setInvoiceModalOpen}
+          orderData={orderData}
+        />
+      )} */}
       {/* {orderData && (
         <UpdateOrder
           updateModalOpen={updateModalOpen}

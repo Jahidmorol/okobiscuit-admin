@@ -1,16 +1,16 @@
 import { Dispatch } from "react";
-import { TUser } from "../redux/features/auth/authSlice";
+import { TUsers } from "./user.type";
 
 export type TOrderItem = {
   name: string;
   unitPrice: number;
   quantity: number;
-  ItemTotalPrice: number;
+  itemTotalPrice: number;
 };
 
 export type TOrderFormValues = {
   _id: string;
-  seller: TUser;
+  seller: TUsers;
   location: string;
   shopName: string;
   shopOwnerName: string;
@@ -28,8 +28,13 @@ export type TOrderFormValues = {
   updatedAt: string;
 };
 
-export type TProductUpdateParams = {
+export type TOrderUpdateParams = {
   updateModalOpen: boolean;
   setUpdateModalOpen: Dispatch<React.SetStateAction<boolean>>;
-  productData: TOrderFormValues;
+  orderData: TOrderFormValues;
+};
+export type TOrderInvoiceParams = {
+  invoiceModalOpen: boolean;
+  setInvoiceModalOpen: Dispatch<React.SetStateAction<boolean>>;
+  orderData: TOrderFormValues;
 };
