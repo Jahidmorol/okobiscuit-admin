@@ -2,6 +2,7 @@ import { LuCornerRightUp } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { getUserInfo } from "../../utils/localStorageAuthManagemet";
 import { verifyToken } from "../../utils/verifyToken";
+import AllOrderList from "../../components/Orders/AllOrderList";
 // import AllOrderList from "../../components/Order/AllOrderList";
 
 const AllOrder = () => {
@@ -31,7 +32,7 @@ const AllOrder = () => {
         </Link>
       </section>
       <section className="bg-white/40 bg-blend-color-burn border p-5 my-5 rounded-xl w-full ">
-        {/* <AllOrderList /> */}
+        <AllOrderList />
       </section>
     </>
   );

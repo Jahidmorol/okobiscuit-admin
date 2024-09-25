@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 export type TQueryParam = {
   name: string;
-  value: boolean | React.Key;
+  value: boolean | React.Key | string;
 };
 
 export type IMeta = {
