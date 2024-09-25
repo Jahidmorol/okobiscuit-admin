@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { LuCornerRightUp } from "react-icons/lu";
 import { getUserInfo } from "../../utils/localStorageAuthManagemet";
 import { verifyToken } from "../../utils/verifyToken";
+import ProductAddForm from "../../components/Orders/ProductAddForm";
 
 const AddOrder = () => {
   const token = getUserInfo();
@@ -38,7 +39,9 @@ const AddOrder = () => {
             edit that from the Order list
           </p>
         </div>
-        <div className="mt-8 md:mt-10">{/* <ProductAddForm /> */}</div>
+        <div className="mt-8 md:mt-10">
+          <ProductAddForm />
+        </div>
       </section>
     </>
   );

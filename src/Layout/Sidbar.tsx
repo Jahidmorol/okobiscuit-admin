@@ -6,7 +6,7 @@ import sidebarItemsGenerator from "../utils/sidebarItemsGenerator";
 import { adminPaths } from "../routes/admin.routes";
 import { sellerPaths } from "../routes/seller.routes";
 import { Link } from "react-router-dom";
-import logoIcon from "../assets/image/favicon1.jpeg";
+import logoIcon from "../assets/image/okobiscuitLoog.png";
 
 const { Sider } = Layout;
 
