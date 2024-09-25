@@ -1,17 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Menu, Layout } from "antd";
 import { getUserInfo } from "../utils/localStorageAuthManagemet";
 import { verifyToken } from "../utils/verifyToken";
-import { TSidebarItem } from "../types/global.type";
 import sidebarItemsGenerator from "../utils/sidebarItemsGenerator";
 import { adminPaths } from "../routes/admin.routes";
 import { sellerPaths } from "../routes/seller.route";
+import { Link } from "react-router-dom";
+import logoIcon from "../assets/image/favicon1.jpeg";
 
 const { Sider } = Layout;
 
 const userRole = {
   ADMIN: "admin",
-  Seller: "faculty",
-  SuperAdmin: "superAdmin",
+  SUPPER_ADMIN: "superAdmin",
+  SELLER: "seller",
 };
 
 const Sidebar = () => {
@@ -22,17 +24,17 @@ const Sidebar = () => {
   if (token) {
     user = verifyToken(token);
   }
-  let sidebarItems: TSidebarItem[] = [];
+  let sidebarItems: any = [];
 
   switch (user?.role) {
     case userRole.ADMIN:
       sidebarItems = sidebarItemsGenerator(adminPaths, userRole.ADMIN);
       break;
-    case userRole.SuperAdmin:
-      sidebarItems = sidebarItemsGenerator(adminPaths, userRole.SuperAdmin);
+    case userRole.SUPPER_ADMIN:
+      sidebarItems = sidebarItemsGenerator(adminPaths, userRole.SUPPER_ADMIN);
       break;
-    case userRole.Seller:
-      sidebarItems = sidebarItemsGenerator(sellerPaths, userRole.Seller);
+    case userRole.SELLER:
+      sidebarItems = sidebarItemsGenerator(sellerPaths, userRole.SELLER);
       break;
 
     default:
@@ -42,32 +44,37 @@ const Sidebar = () => {
   return (
     <Sider
       breakpoint="lg"
+      theme="light"
       collapsedWidth="0"
-      style={{ height: "100vh", position: "sticky", top: "0", left: "0" }}
-      // onBreakpoint={(broken) => {
-      //   console.log(broken);
-      // }}
-      // onCollapse={(collapsed, type) => {
-      //   console.log(collapsed, type);
-      // }}
+      style={{
+        height: "100vh",
+        position: "sticky",
+        top: "0",
+        left: "0",
+        overflow: "auto",
+        scrollbarWidth: "revert",
+      }}
+      className="customScroll"
+      width={250}
+
+      // collapsible
     >
-      <div
-        style={{
-          color: "white",
-          textAlign: "center",
-          height: "4rem",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <h1>PH University</h1>
-      </div>
+      <Link to="/dashboard">
+        <div className="flex items-center justify-center md:justify-start md:ml-7 gap-1.5 cursor-pointer py-2">
+          <img className="w-[52px]" src={logoIcon} alt="logo" />
+          <div className="text-xl leading-[1em] italic font-extrabold">
+            <h2 className="text-primary">Oko</h2>
+            <h3 className="text-secondary">Biscuit</h3>
+          </div>
+        </div>
+      </Link>
+
       <Menu
-        theme="dark"
         mode="inline"
-        defaultSelectedKeys={["4"]}
+        theme="light"
+        defaultSelectedKeys={["1"]}
         items={sidebarItems}
+        className="[&_li:hover]:!text-primary [&_li:hover>div]:!text-primary *:font-medium"
       />
     </Sider>
   );

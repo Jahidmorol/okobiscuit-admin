@@ -13,12 +13,12 @@ export const sellerPaths = [
     children: [
       {
         name: "All Orders",
-        path: "/order",
+        path: "order",
         element: <EmployeeDetailsPage />,
       },
       {
         name: "Invoice",
-        path: "/invoice",
+        path: "invoice",
         element: <InvoicePage />,
       },
     ],

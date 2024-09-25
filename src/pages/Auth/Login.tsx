@@ -3,13 +3,12 @@
 import { Button, Checkbox, Form, Grid, Input, theme, Typography } from "antd";
 
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { useAppDispatch } from "../../redux/hooks";
 import { useNavigate } from "react-router-dom";
+// import { useAppDispatch } from "../../redux/hooks";
+// import { setUser } from "../../redux/features/auth/authSlice";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { toast } from "sonner";
 import { verifyToken } from "../../utils/verifyToken";
-import { storeUserInfo } from "../../utils/localStorageAuthManagemet";
-import { setUser } from "../../redux/features/auth/authSlice";
 
 const { useToken } = theme;
 const { useBreakpoint } = Grid;
@@ -19,8 +18,8 @@ export default function Login() {
   const { token } = useToken();
   const screens = useBreakpoint();
   const [form] = Form.useForm();
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  // const dispatch = useAppDispatch();
   const [login] = useLoginMutation();
 
   const onSubmit = async (data: any) => {
@@ -28,10 +27,9 @@ export default function Login() {
 
     try {
       const res = await login(data).unwrap();
-
       const user = verifyToken(res?.data?.accessToken);
-      storeUserInfo(res?.data?.accessToken);
-      dispatch(setUser({ user: user, token: res?.data?.accessToken }));
+      localStorage.setItem("okoAccessToken", res?.data?.accessToken);
+      // dispatch(setUser({ user: user, token: res?.data?.accessToken }));
 
       toast.success("Logged In successful!", { id: toastId, duration: 2000 });
       navigate(`/${user.role}/dashboard`);
@@ -89,6 +87,8 @@ export default function Login() {
         <Form
           initialValues={{
             remember: true,
+            email: "superAdmin@gmail.com",
+            password: "superAdmin00@11",
           }}
           form={form}
           onFinish={onSubmit}

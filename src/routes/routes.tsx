@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout";
-import InvoicePage from "../pages/Invoice/Invoice";
-import EmployeeDetailsPage from "../pages/Employee/EmployeeDetails";
 import ResetPassword from "../pages/Auth/ResetPassword";
 import Login from "../pages/Auth/Login";
 import ForgetPassword from "../pages/Auth/ForgetPassword";
-import Home from "../pages/Home/Home";
 import Register from "../pages/Auth/RegisterSeller";
 import ProtectedRoute from "../Layout/ProtectedRoute";
+import routeGenerator from "../utils/routesGenerator";
+import { adminPaths } from "./admin.routes";
+import { sellerPaths } from "./seller.route";
 
 const router = createBrowserRouter([
   {
@@ -16,17 +16,18 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/order",
-        element: <EmployeeDetailsPage />,
-      },
-      {
-        path: "/invoice",
-        element: <InvoicePage />,
+        element: <h2>jahid morol khan</h2>,
       },
     ],
+  },
+  {
+    path: "/superAdmin",
+    element: (
+      <ProtectedRoute role={"superAdmin"}>
+        <MainLayout />
+      </ProtectedRoute>
+    ),
+    children: routeGenerator(adminPaths),
   },
   {
     path: "/admin",
@@ -35,7 +36,16 @@ const router = createBrowserRouter([
         <MainLayout />
       </ProtectedRoute>
     ),
-    // children:
+    children: routeGenerator(adminPaths),
+  },
+  {
+    path: "/seller",
+    element: (
+      <ProtectedRoute role={"seller"}>
+        <MainLayout />
+      </ProtectedRoute>
+    ),
+    children: routeGenerator(sellerPaths),
   },
   {
     path: "/reset-password",

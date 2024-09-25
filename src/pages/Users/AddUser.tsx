@@ -3,10 +3,9 @@ import { LuCornerRightUp } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import AddUserForm from "../../components/Users/AddUserForm";
 
-
 const AddUser = () => {
-    return (
-        <>
+  return (
+    <>
       <section className="flex items-center justify-between">
         <div className="text-base flex items-center gap-2 md:gap-3">
           <Link to="/" className="text-primary">
@@ -36,11 +35,11 @@ const AddUser = () => {
           </p> */}
         </div>
         <div className="mt-8 md:mt-10">
-          <AddUserForm/>
+          <AddUserForm />
         </div>
       </section>
     </>
-    );
+  );
 };
 
 export default AddUser;

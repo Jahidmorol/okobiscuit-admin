@@ -1,14 +1,14 @@
 // Store user information in local storage
 export const storeUserInfo = ({ accessToken }: { accessToken: string }) => {
   if (typeof window !== "undefined") {
-    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("okoAccessToken", accessToken);
   }
 };
 
 // Retrieve user information from local storage
 export const getUserInfo = () => {
   if (typeof window !== "undefined") {
-    return localStorage.getItem("accessToken");
+    return localStorage.getItem("okoAccessToken");
   }
   return null;
 };
@@ -16,7 +16,7 @@ export const getUserInfo = () => {
 // Remove user information from local storage
 export const removeFromLocalStorage = () => {
   if (typeof window !== "undefined") {
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem("okoAccessToken");
   }
 };
 

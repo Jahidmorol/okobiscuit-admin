@@ -3,7 +3,7 @@ import { Pagination } from "antd";
 import { TPagination } from "../../types/pagination.type";
 import "../../styles/pagination.css";
 
-const LabonePagination = ({ meta, handlePaginationChange }: TPagination) => {
+const SynerPagination = ({ meta, handlePaginationChange }: TPagination) => {
   return (
     <div className="flex items-center justify-center mt-7 md:mt-10">
       <Pagination
@@ -18,4 +18,4 @@ const LabonePagination = ({ meta, handlePaginationChange }: TPagination) => {
   );
 };
 
-export default LabonePagination;
+export default SynerPagination;

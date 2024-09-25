@@ -17,6 +17,8 @@ const ProtectedRoute = ({ children, role }: TProtectedRoute) => {
   const token = getUserInfo();
   const dispatch = useAppDispatch();
 
+  console.log("token", token);
+
   let user: JwtPayload | undefined;
 
   if (token !== null && typeof token === "string") {
