@@ -32,11 +32,15 @@ const AllOrderList = () => {
 
   const handleDeleteOrder = async (id: string) => {
     const toastId = toast.loading("Deleting order...");
-    const res = await deleteOrder(id).unwrap();
-    if (res?.success) {
-      toast.success("Order deleted successfully", { id: toastId });
-    } else {
-      toast.error("Failed to delete order", { id: toastId });
+    try {
+      const res = await deleteOrder(id).unwrap();
+      if (res?.success) {
+        toast.success("Order deleted successfully", { id: toastId });
+      }
+    } catch (error: any) {
+      console.log("error for deleing--=>", error);
+
+      toast.error(error.message || "Failed to delete order", { id: toastId });
     }
   };
 

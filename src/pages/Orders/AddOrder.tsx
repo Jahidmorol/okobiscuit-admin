@@ -32,14 +32,15 @@ const AddOrder = () => {
       </section>
       <section className="bg-white/40 bg-blend-color-burn border p-3 md:p-8 my-10 rounded-xl w-full max-w-[900px] mx-auto">
         <div className=" text-center">
-          <h2 className="text-primary text-xl font-semibold">Order Add Form</h2>
-          <Divider plain>Add new Order</Divider>
+          <h2 className="text-primary text-xl font-semibold mb-2">
+            Order Add Form
+          </h2>
           <p>
             If already added on quick addition form. do not add here again. just
             edit that from the Order list
           </p>
         </div>
-        <div className="mt-8 md:mt-10">
+        <div className="mt-8 md:mt-8">
           <ProductAddForm />
         </div>
       </section>
