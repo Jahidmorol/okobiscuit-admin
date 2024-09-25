@@ -1,15 +1,21 @@
 import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
-import { getUserInfo } from "../utils/localStorageAuthManagemet";
+import {
+  getUserInfo,
+  removeFromLocalStorage,
+} from "../utils/localStorageAuthManagemet";
 import { JwtPayload, verifyToken } from "../utils/verifyToken";
+import { useAppDispatch } from "../redux/hooks";
+import { Logout } from "../redux/features/auth/authSlice";
 
 type TProtectedRoute = {
   children: ReactNode;
-  admin?: boolean;
+  role: string | undefined;
 };
 
-const ProtectedRoute = ({ children }: TProtectedRoute) => {
+const ProtectedRoute = ({ children, role }: TProtectedRoute) => {
   const token = getUserInfo();
+  const dispatch = useAppDispatch();
 
   let user: JwtPayload | undefined;
 
@@ -17,7 +23,9 @@ const ProtectedRoute = ({ children }: TProtectedRoute) => {
     user = verifyToken(token);
   }
 
-  if (user?.role !== "admin" && user?.role !== "superAdmin") {
+  if (user?.role !== undefined && role !== user?.role) {
+    removeFromLocalStorage();
+    dispatch(Logout());
     return <Navigate to="/login" replace={true} />;
   }
 

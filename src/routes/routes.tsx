@@ -7,6 +7,7 @@ import Login from "../pages/Auth/Login";
 import ForgetPassword from "../pages/Auth/ForgetPassword";
 import Home from "../pages/Home/Home";
 import Register from "../pages/Auth/RegisterSeller";
+import ProtectedRoute from "../Layout/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,15 @@ const router = createBrowserRouter([
         element: <InvoicePage />,
       },
     ],
+  },
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoute role={"admin"}>
+        <MainLayout />
+      </ProtectedRoute>
+    ),
+    // children:
   },
   {
     path: "/reset-password",
