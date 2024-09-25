@@ -8,8 +8,8 @@ export default {
         DMSans: ["DM Sans", "sans-serif"],
       },
       colors: {
-        primary: "#0a8848",
-        secondary: "#f70920",
+        primary: "#fad5ab",
+        secondary: "#4DD0E1",
         accent: "#333333",
       },
     },
