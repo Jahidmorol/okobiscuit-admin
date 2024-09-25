@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import {
   Button,
@@ -9,10 +8,11 @@ import {
   Table,
   TableColumnsType,
 } from "antd";
-import { AiFillDelete } from "react-icons/ai";
+import { AiFillDelete, AiFillEdit, AiOutlineCheck } from "react-icons/ai";
 
 import { TUsers } from "../../types/user.type";
 import {
+  useApprovedSellerRequestMutation,
   useDeleteUserMutation,
   useGetAllUserQuery,
 } from "../../redux/features/user/userApi";
@@ -21,13 +21,15 @@ import { TQueryParam } from "../../types/global.type";
 import { toast } from "sonner";
 import SynerPagination from "../../utils/Pagination/pagination";
 
-const AllUsers = () => {
+const AllSellerRequestList = () => {
   const [params, setParams] = useState<TQueryParam[]>([
     { name: "limit", value: 10 },
-    { name: "isAdminApproved", value: true },
+    { name: "role", value: "seller" },
+    { name: "isAdminApproved", value: false },
   ]);
   const { data, isFetching } = useGetAllUserQuery(params);
   const [deleteUser] = useDeleteUserMutation();
+  const [approvedSellerRequest] = useApprovedSellerRequestMutation();
 
   const columns: TableColumnsType<TUsers> = [
     {
@@ -58,17 +60,24 @@ const AllUsers = () => {
       dataIndex: "email",
     },
     {
-      title: "User Role",
-      dataIndex: "role",
-    },
-
-    {
       title: "Action",
       align: "center",
       fixed: "right",
-      width: 100,
+      width: 150,
       render: (_, record) => (
         <div className="flex justify-center gap-2">
+          <Popconfirm
+            title="Approved this Seller"
+            description="Are you sure to Approved this Seller?"
+            placement="topRight"
+            onConfirm={() => handleApprovedRequest(record._id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button>
+              <AiOutlineCheck fontSize={16} />
+            </Button>
+          </Popconfirm>
           <Popconfirm
             title="Delete the user"
             description="Are you sure to delete this user?"
@@ -88,6 +97,15 @@ const AllUsers = () => {
 
   const handleDelete = async (id: string) => {
     const res = await deleteUser(id).unwrap();
+    if (res?.success) {
+      toast.success("User Delete Successful");
+    } else {
+      toast.error("Something want wrong!");
+    }
+  };
+
+  const handleApprovedRequest = async (id: string) => {
+    const res = await approvedSellerRequest(id).unwrap();
     if (res?.success) {
       toast.success("User Delete Successful");
     } else {
@@ -159,4 +177,4 @@ const AllUsers = () => {
   );
 };
 
-export default AllUsers;
+export default AllSellerRequestList;

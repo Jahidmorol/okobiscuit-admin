@@ -1,8 +1,16 @@
 import { LuCornerRightDown } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import AllUsers from "../../components/Users/AllUsers";
+import { getUserInfo } from "../../utils/localStorageAuthManagemet";
+import { verifyToken } from "../../utils/verifyToken";
 
 const Users = () => {
+  const token = getUserInfo();
+  let user: Record<string, unknown> | undefined;
+  if (token !== null && typeof token === "string") {
+    user = verifyToken(token);
+  }
+
   return (
     <>
       <section className="flex items-center justify-between">
@@ -14,9 +22,9 @@ const Users = () => {
           <span>All Users</span>
         </div>
         <Link
-          to="/add-user"
+          to={`/${user?.role || "admin"}/add-user`}
           className="flex items-center gap-2 bg-primary hover:bg-accent text-white hover:text-white px-4 py-2.5 rounded-lg transition duration-150"
-          title="Add Doctor"
+          title="Add Admin"
         >
           <span>Add user</span>
           <LuCornerRightDown />

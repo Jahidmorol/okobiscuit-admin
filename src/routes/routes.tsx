@@ -7,7 +7,7 @@ import Register from "../pages/Auth/RegisterSeller";
 import ProtectedRoute from "../Layout/ProtectedRoute";
 import routeGenerator from "../utils/routesGenerator";
 import { adminPaths } from "./admin.routes";
-import { sellerPaths } from "./seller.route";
+import { sellerPaths } from "./seller.routes";
 
 const router = createBrowserRouter([
   // {

@@ -4,7 +4,7 @@ import { getUserInfo } from "../utils/localStorageAuthManagemet";
 import { verifyToken } from "../utils/verifyToken";
 import sidebarItemsGenerator from "../utils/sidebarItemsGenerator";
 import { adminPaths } from "../routes/admin.routes";
-import { sellerPaths } from "../routes/seller.route";
+import { sellerPaths } from "../routes/seller.routes";
 import { Link } from "react-router-dom";
 import logoIcon from "../assets/image/favicon1.jpeg";
 

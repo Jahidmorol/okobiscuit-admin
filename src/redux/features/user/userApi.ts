@@ -62,6 +62,15 @@ const userApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["user"],
     }),
+    approvedSellerRequest: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/user/admin-verify/${id}`,
+          method: "PATCH",
+        };
+      },
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 
@@ -71,4 +80,5 @@ export const {
   useAddNewUserMutation,
   useGetAllUserQuery,
   useDeleteUserMutation,
+  useApprovedSellerRequestMutation,
 } = userApi;
