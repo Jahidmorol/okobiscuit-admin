@@ -25,7 +25,7 @@ const NavDropDown = () => {
   const items: MenuProps["items"] = [
     {
       label: (
-        <div className="p-2 flex items-center !w-[235px]">
+        <div className="p-2 flex items-center ">
           <Image
             src={user?.photo}
             width={40}
@@ -34,10 +34,8 @@ const NavDropDown = () => {
             className="w-[40px] h-[40px] object-cover rounded-full"
           />
           <div className="ml-4">
-            <h2 className="text-sm text-primary font-semibold">
-              {user?.firstName + " " + user?.lastName}
-            </h2>
-            <p className="text-sm whitespace-normal text-wrap break-words !w-[145px]">
+            <h2 className="text-sm text-primary font-semibold">{user?.name}</h2>
+            <p className="text-sm whitespace-normal text-wrap break-words ">
               {user?.email}
             </p>
           </div>
@@ -94,7 +92,7 @@ const NavDropDown = () => {
             className="w-[32px] h-[32px] object-cover rounded-full mr-4"
           />
           <h2 className="text-sm font-semibold text-primary mx-2">
-            {user?.firstName + " " + user?.lastName}
+            {user?.name}
           </h2>
           {dropdownVisible ? (
             <LiaAngleUpSolid className="w-4 h-4 text-secondary" />

@@ -28,7 +28,7 @@ export default function Login() {
     try {
       const res = await login(data).unwrap();
       const user = verifyToken(res?.data?.accessToken);
-      localStorage.setItem("okoAccessToken", res?.data?.accessToken);
+      localStorage.setItem("accessToken", res?.data?.accessToken);
       // dispatch(setUser({ user: user, token: res?.data?.accessToken }));
 
       toast.success("Logged In successful!", { id: toastId, duration: 2000 });

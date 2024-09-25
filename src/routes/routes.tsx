@@ -10,16 +10,16 @@ import { adminPaths } from "./admin.routes";
 import { sellerPaths } from "./seller.route";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <MainLayout />,
-    children: [
-      {
-        path: "/",
-        element: <h2>jahid morol khan</h2>,
-      },
-    ],
-  },
+  // {
+  //   path: "/",
+  //   element: <MainLayout />,
+  //   children: [
+  //     {
+  //       path: "/",
+  //       element: <h2>jahid morol khan</h2>,
+  //     },
+  //   ],
+  // },
   {
     path: "/superAdmin",
     element: (
