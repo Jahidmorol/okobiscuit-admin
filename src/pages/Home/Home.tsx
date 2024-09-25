@@ -8,7 +8,7 @@ const Home = () => {
       <section className="flex justify-between">
         <div className="text-base flex items-center gap-2 md:gap-3">
           <Link to="/" className="text-primary">
-            Lab One
+            OkoBiscuit
           </Link>
           <span>/</span>
           <span>Dashboard</span>

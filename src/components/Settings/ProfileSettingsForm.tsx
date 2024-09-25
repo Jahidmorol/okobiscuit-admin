@@ -23,18 +23,26 @@ const ProfileSettingsForm = () => {
 
     let imageLink;
 
-    if (file) {
+    if (file.length > 0) {
       imageLink = await uploadImageInCloudinary(file, toastId);
+      if (!imageLink) {
+        return toast.error("Image upload failed! Please try again.", {
+          id: toastId,
+        });
+      }
     }
 
     const profileData = {
-      firstName: data?.firstName,
-      lastName: data?.lastName,
+      name: data?.name,
       photo: imageLink ? imageLink : user?.photo,
     };
 
     try {
       const res = await userUpdate(profileData).unwrap();
+
+      console.log("profileData", profileData);
+      console.log("res", res);
+
       if (res?.success) {
         setIsLoading(true);
 
@@ -52,15 +60,25 @@ const ProfileSettingsForm = () => {
     }
   };
 
+  // useEffect(() => {
+  //   form.resetFields();
+  //   form.setFieldsValue({
+  //     name: user?.name,
+  //     email: user?.email,
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   useEffect(() => {
     form.resetFields();
-    form.setFieldsValue({
-      firstName: user?.firstName,
-      lastName: user?.lastName,
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  
+    if (user) {
+      form.setFieldsValue({
+        name: user.name, // Assuming `user` object has a `name` field
+      });
+    }
+  }, [user, form]);
+
+  console.log("user: ", user);
+
   return (
     <>
       <Row>
@@ -70,30 +88,15 @@ const ProfileSettingsForm = () => {
             onFinish={onSubmit}
             requiredMark={false}
             layout="vertical"
+            initialValues={{ name: user?.name }}
           >
             <Row gutter={16}>
-              <Col span={24} md={{ span: 12 }}>
+              <Col span={24} md={{ span: 24 }}>
                 <Form.Item
-                  label="First Name"
-                  name="firstName"
-                  tooltip="Here you have to input your first name."
-                  rules={[
-                    { required: true, message: "First Name is required" },
-                  ]}
-                >
-                  <Input
-                    type="text"
-                    placeholder="Write here..."
-                    className="h-10 border border-[#C4CAD4] !rounded-lg"
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={24} md={{ span: 12 }}>
-                <Form.Item
-                  label="Last Name"
-                  name="lastName"
-                  tooltip="Here you have to input your last name."
-                  rules={[{ required: true, message: "Last name is required" }]}
+                  label="Name"
+                  name="name"
+                  tooltip="Here you have to input your name."
+                  rules={[{ required: true, message: "Name is required" }]}
                 >
                   <Input
                     type="text"

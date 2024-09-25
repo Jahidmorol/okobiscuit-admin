@@ -11,17 +11,22 @@ export const adminPaths = [
   },
   {
     name: "Users",
-    path: "users",
-    element: <Users />,
+    children: [
+      {
+        name: "All Users",
+        path: "users",
+        element: <Users />,
+      },
+      {
+        name: "Add User",
+        path: "add-user",
+        element: <AddUser />,
+      },
+    ],
   },
   {
     name: "Settings",
     path: "settings",
     element: <Settings />,
-  },
-  {
-    name: "Add User",
-    path: "add-user",
-    element: <AddUser />,
   },
 ];

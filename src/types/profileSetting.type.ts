@@ -2,12 +2,11 @@ import { Dispatch } from "react";
 
 export type TProfile = {
   _id: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
-  userImage: string;
+  photo: string;
 };
-export type TUpdateProfile= {
+export type TUpdateProfile = {
   updateModalOpen: boolean;
   setUpdateModalOpen: Dispatch<React.SetStateAction<boolean>>;
   profileData: TProfile;

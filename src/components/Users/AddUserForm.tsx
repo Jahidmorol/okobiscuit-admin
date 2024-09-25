@@ -1,15 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { Col, Form, Input, Row } from "antd";
+import { Col, Form, Input, Row, Select } from "antd";
 import { TUsers } from "../../types/user.type";
 import { uploadImageInCloudinary } from "../../utils/UploadImage/UploadImageInCloudinay";
 import { toast } from "sonner";
 import UploadImageWithPreview from "../../utils/UploadImage/UploadImageWithPreview";
 import { useAddNewUserMutation } from "../../redux/features/user/userApi";
-import { passwordRules } from "./userConstant";
 
 const AddUserForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [file, setFile] = useState<any>([]);
   const [form] = Form.useForm();
   const [addNewUser] = useAddNewUserMutation();
@@ -18,17 +17,28 @@ const AddUserForm = () => {
     const toastId = toast.loading("Adding new user...");
 
     let imageLink;
-    if (file) {
+
+    if (file.length > 0) {
       imageLink = await uploadImageInCloudinary(file, toastId);
+      if (!imageLink) {
+        return toast.error("Image upload failed! Please try again.", {
+          id: toastId,
+        });
+      }
+    } else {
+      return toast.error("User Image Is Required.", {
+        id: toastId,
+      });
     }
 
     const userNewData = {
-      firstName: data?.firstName,
-      lastName: data?.lastName,
+      name: data?.name,
       photo: imageLink,
       email: data?.email,
       password: data?.password,
+      role: data?.role,
     };
+
     try {
       const res = await addNewUser(userNewData).unwrap();
       if (res?.success) {
@@ -39,7 +49,6 @@ const AddUserForm = () => {
       } else {
         toast.error("Something want wrong!", { id: toastId });
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error("Something want wrong!", { id: toastId });
     } finally {
@@ -60,12 +69,10 @@ const AddUserForm = () => {
             <Row gutter={16}>
               <Col span={24} md={{ span: 12 }}>
                 <Form.Item
-                  label="First Name"
-                  name="firstName"
-                  tooltip="Here you have to input the doctor's first name."
-                  rules={[
-                    { required: true, message: "First Name is required" },
-                  ]}
+                  label="Name"
+                  name="name"
+                  tooltip="Here you have to input the user name."
+                  rules={[{ required: true, message: "Name is required" }]}
                 >
                   <Input
                     type="text"
@@ -77,19 +84,21 @@ const AddUserForm = () => {
               </Col>
               <Col span={24} md={{ span: 12 }}>
                 <Form.Item
-                  label="Last Name"
-                  name="lastName"
-                  tooltip="Here you have to input the doctor's last name."
-                  rules={[{ required: true, message: "Last Name is required" }]}
+                  label="User Role"
+                  name="role"
+                  tooltip="Please select the user role."
+                  rules={[{ required: true, message: "User role is required" }]}
                 >
-                  <Input
-                    type="text"
-                    autoComplete="off"
-                    placeholder="Write here..."
+                  <Select
+                    placeholder="Select role"
                     className="h-10 border border-[#C4CAD4] !rounded-lg"
-                  />
+                  >
+                    <Select.Option value="seller">Seller</Select.Option>
+                    <Select.Option value="admin">Admin</Select.Option>
+                  </Select>
                 </Form.Item>
               </Col>
+              ;
             </Row>
 
             <Row gutter={16}>
@@ -111,8 +120,11 @@ const AddUserForm = () => {
                 <Form.Item
                   label="Password"
                   name="password"
+                  extra={"Provide at least 8 caracter"}
                   tooltip="Here you have to input the user password."
-                  rules={passwordRules}
+                  rules={[
+                    { required: true, message: "Password is required", min: 8 },
+                  ]}
                 >
                   <Input.Password
                     type="password"

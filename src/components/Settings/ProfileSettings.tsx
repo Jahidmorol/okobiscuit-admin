@@ -9,7 +9,7 @@ const ProfileSettings = () => {
       <section className="flex items-center justify-between">
         <div className="text-base flex items-center gap-2 md:gap-3">
           <Link to="/" className="text-primary">
-            Lab One
+            OkoBiscuit
           </Link>
           <span>/</span>
           <span>Settings</span>
