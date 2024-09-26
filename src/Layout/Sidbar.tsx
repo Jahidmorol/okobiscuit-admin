@@ -72,7 +72,8 @@ const Sidebar = () => {
       <Menu
         mode="inline"
         theme="light"
-        defaultSelectedKeys={["1"]}
+        // defaultSelectedKeys={["1", "all-orders", "add-order", "4", "5"]}
+        // defaultOpenKeys={["All Orders", "add-order"]}
         items={sidebarItems}
         className="[&_li:hover]:!text-primary [&_li:hover>div]:!text-primary *:font-medium"
       />

@@ -10,10 +10,10 @@ import {
 } from "antd";
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 import ImgCrop from "antd-img-crop";
-import { TUploadImage } from "../../types/uploadImage.type";
 import { MdOutlineFileUpload } from "react-icons/md";
 import staticDefault from "../../assets/image/preview.jpg";
 import "../../styles/uploadImage.css";
+import { TUploadImage } from "../../types/uploadImage.type";
 
 const UploadImageWithPreview = ({
   setFile,

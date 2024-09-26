@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout";
 import ResetPassword from "../pages/Auth/ResetPassword";
 import Login from "../pages/Auth/Login";
@@ -10,16 +10,10 @@ import { adminPaths } from "./admin.routes";
 import { sellerPaths } from "./seller.routes";
 
 const router = createBrowserRouter([
-  // {
-  //   path: "/",
-  //   element: <MainLayout />,
-  //   children: [
-  //     {
-  //       path: "/",
-  //       element: <h2>jahid morol khan</h2>,
-  //     },
-  //   ],
-  // },
+  {
+    path: "/",
+    element: <Navigate to="/login" />, // Redirect to /dashboard
+  },
   {
     path: "/superAdmin",
     element: (

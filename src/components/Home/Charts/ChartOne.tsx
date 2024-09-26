@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { ApexOptions } from "apexcharts";
 import ReactApexChart from "react-apexcharts";
-import { useGetAppointmentDataQuery } from "../../../redux/features/meta/metaApi";
+import { useGetOrderDataQuery } from "../../../redux/features/meta/metaApi";
 
 const ChartOne = () => {
   const [duration, setDuration] = useState("all");
-  const { data } = useGetAppointmentDataQuery(duration);
+  const { data, error } = useGetOrderDataQuery(duration);
+
+  console.log("error--=>", error);
 
   const options: ApexOptions = {
     colors: ["#0a8848", "#80CAEE"],
@@ -115,7 +117,7 @@ const ChartOne = () => {
   };
   const series = [
     {
-      name: "Appointments",
+      name: "Order",
       data: data?.data?.map((item: Record<string, unknown>) => item.quantity),
     },
   ];
@@ -128,9 +130,7 @@ const ChartOne = () => {
             <span className="flex h-4 w-4 items-center justify-center rounded-full border border-primary">
               <span className="block h-2.5 w-2.5 rounded-full bg-primary"></span>
             </span>
-            <p className="font-semibold text-primary grow">
-              Total Appointments
-            </p>
+            <p className="font-semibold text-primary grow">Total Order</p>
           </div>
         </div>
         <div className="flex w-full max-w-45 justify-end">

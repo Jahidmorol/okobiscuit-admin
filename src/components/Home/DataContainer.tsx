@@ -1,9 +1,10 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import { FaUserDoctor } from "react-icons/fa6";
-import { LuCalendarClock, LuCalendarSearch, LuGitBranch } from "react-icons/lu";
-import { GrVirtualMachine } from "react-icons/gr";
-import { BiUserPlus } from "react-icons/bi";
+import { AiOutlineImport } from "react-icons/ai";
+import { IoMdTimer } from "react-icons/io";
+import { RiAdminFill } from "react-icons/ri";
+import { FaUserTag } from "react-icons/fa";
+import { FaFirstOrderAlt } from "react-icons/fa6";
 
 // import Swiper and modules styles
 import "swiper/css";
@@ -19,34 +20,29 @@ const DataContainer = () => {
 
   const items = [
     {
-      title: "Total Appointments",
-      quentity: data?.data?.totalAppointments,
-      icon: <LuCalendarClock />,
+      title: "Total Seller Request",
+      quentity: data?.data?.totalSellerRequest,
+      icon: <AiOutlineImport />,
     },
     {
-      title: "Pending Appointments",
-      quentity: data?.data?.totalPendingAppointments,
-      icon: <LuCalendarSearch />,
+      title: "Resent Orders",
+      quentity: data?.data?.resentOrders,
+      icon: <IoMdTimer />,
     },
     {
-      title: "Total Doctors",
-      quentity: data?.data?.totalDoctors,
-      icon: <FaUserDoctor />,
+      title: "Total Orders",
+      quentity: data?.data?.totalOrders,
+      icon: <FaFirstOrderAlt />,
     },
     {
-      title: "Total Machines",
-      quentity: data?.data?.totalMachines,
-      icon: <GrVirtualMachine />,
+      title: "Total Admins",
+      quentity: data?.data?.totalAdmins,
+      icon: <RiAdminFill />,
     },
     {
-      title: "Total Departments",
-      quentity: data?.data?.totalDepartments,
-      icon: <LuGitBranch />,
-    },
-    {
-      title: "Total Schedules",
-      quentity: data?.data?.totalSchedules,
-      icon: <BiUserPlus />,
+      title: "Total Sellers",
+      quentity: data?.data?.totalSeller,
+      icon: <FaUserTag />,
     },
   ];
 
