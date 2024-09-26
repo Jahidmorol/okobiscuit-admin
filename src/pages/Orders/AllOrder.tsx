@@ -21,15 +21,17 @@ const AllOrder = () => {
           <span>/</span>
           <span>All Order</span>
         </div>
-        <Link
-          // to="/all-Order"
-          to={`/${user?.role}/add-order`}
-          className="flex items-center gap-2 bg-primary hover:bg-accent text-white hover:text-white px-4 py-2.5 rounded-lg transition duration-150"
-          title="Add Order"
-        >
-          <span>Add Order</span>
-          <LuCornerRightUp />
-        </Link>
+        {user?.role === "seller" && (
+          <Link
+            // to="/all-Order"
+            to={`/${user?.role}/add-order`}
+            className="flex items-center gap-2 bg-primary hover:bg-accent text-white hover:text-white px-4 py-2.5 rounded-lg transition duration-150"
+            title="Add Order"
+          >
+            <span>Add Order</span>
+            <LuCornerRightUp />
+          </Link>
+        )}
       </section>
       <section className="bg-white/40 bg-blend-color-burn border p-5 my-5 rounded-xl w-full ">
         <AllOrderList />

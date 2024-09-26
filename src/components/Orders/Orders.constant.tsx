@@ -4,9 +4,11 @@ import { format } from "date-fns";
 export const handlePrint = (orderData: TOrderFormValues) => {
   const printWindow = window.open("", "_blank");
   if (printWindow) {
-    const today = format(new Date(), " dd-mm-yyyy");
+    const orderDate = orderData?.createdAt
+      ? format(new Date(orderData.createdAt), " dd-MM-yyyy")
+      : "";
     const deliveryDate = orderData?.deliveryDate
-      ? format(new Date(orderData.deliveryDate), " dd-mm-yyyy")
+      ? format(new Date(orderData.deliveryDate), " dd-MM-yyyy")
       : "";
 
     printWindow.document.write(`
@@ -18,7 +20,7 @@ export const handlePrint = (orderData: TOrderFormValues) => {
               .invoice { border: 1px solid #ccc; padding: 20px; }
               .header { text-align: center; }
               .footer { text-align: left; margin-top: 20px; }
-              .date { text-align: right; margin-bottom: 20px; }
+              .dateContainer { display: flex; justify-content: space-between; }
               table { width: 100%; border-collapse: collapse; margin-top: 20px; }
               th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
               th { background-color: #f2f2f2; }
@@ -28,12 +30,14 @@ export const handlePrint = (orderData: TOrderFormValues) => {
           </head>
           <body>
             <div class="invoice">
-              <h1 class="header">Invoice</h1>
-              <div class="date"><strong>Date:</strong> ${today}</div>
+            <h1 class="header">Invoice</h1>
+              <div class="dateContainer">
+                <p><strong>Delivery Date:</strong> ${deliveryDate}</p>
+                 <p><strong>Order Date:</strong> ${orderDate}</p>
+              </div>
               <p><strong>Shop Name:</strong> ${orderData?.shopName}</p>
               <p><strong>Owner Name:</strong> ${orderData?.shopOwnerName}</p>
               <p><strong>Contact:</strong> ${orderData?.contact}</p>
-              <p><strong>Delivery Date:</strong> ${deliveryDate}</p> <!-- Formatted Delivery Date -->
               <p><strong>Address:</strong> ${orderData?.address}</p>
               <p><strong>Location:</strong> ${orderData?.location}</p>
               <h2>Items</h2>
@@ -58,18 +62,20 @@ export const handlePrint = (orderData: TOrderFormValues) => {
                   .join("")}
               </table>
               <div class="summary">
+              <p><strong>Grand Total: ${orderData?.grandTotalPrice.toFixed(
+                2
+              )}</strong></p>
                 <p><strong>Advanced Price:</strong> ${orderData?.advancedPrice.toFixed(
                   2
                 )}</p>
-                <p><strong>Due Price:</strong> ${orderData?.duePrice.toFixed(
+                <p><strong>Old Due:</strong> ${orderData?.duePrice.toFixed(
                   2
                 )}</p>
-                <p><strong>Total Price:</strong> ${orderData?.totalPrice.toFixed(
+                
+                <h2><strong>Total Price:</strong> ${orderData?.totalPrice.toFixed(
                   2
-                )}</p>
-                <h2><strong>Grand Total: ${orderData?.grandTotalPrice.toFixed(
-                  2
-                )}</strong></h2>
+                )}</h2>
+                
               </div>
               <div class="footer">
                 <p><strong>Seller:</strong> ${orderData?.seller.name}</p>

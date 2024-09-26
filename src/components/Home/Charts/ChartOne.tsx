@@ -5,7 +5,10 @@ import { useGetOrderDataQuery } from "../../../redux/features/meta/metaApi";
 
 const ChartOne = () => {
   const [duration, setDuration] = useState("year");
-  const { data } = useGetOrderDataQuery(duration);
+  const { data, error } = useGetOrderDataQuery(duration);
+
+  console.log("data", data);
+  console.log("error", error);
 
   const options: ApexOptions = {
     colors: ["#0a8848", "#80CAEE"],

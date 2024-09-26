@@ -24,7 +24,6 @@ const AllOrderList = () => {
     { name: "limit", value: 10 },
   ]);
   const { data, isLoading } = useGetAllOrderQuery(params);
-  console.log("data--=>", data);
 
   const [deleteOrder] = useDeleteOrderMutation();
   // const [updateModalOpen, setUpdateModalOpen] = useState(false);
@@ -66,22 +65,35 @@ const AllOrderList = () => {
     {
       title: "Shop Name",
       dataIndex: "shopName",
-      width: 200,
     },
     {
       title: "Owner Name",
       dataIndex: "shopOwnerName",
-      width: 200,
     },
     {
       title: "Contact",
       dataIndex: "contact",
-      width: 150,
     },
+
     {
       title: "Grand Total Price",
       dataIndex: "grandTotalPrice",
-      render: (price: number) => <p>{price}</p>,
+      // render: (price: number) => <p>{price}</p>,
+      width: 150,
+    },
+    {
+      title: "Advanced Price",
+      dataIndex: "advancedPrice",
+      width: 150,
+    },
+    {
+      title: "Old Due",
+      dataIndex: "duePrice",
+      width: 150,
+    },
+    {
+      title: "Total Price",
+      dataIndex: "totalPrice",
       width: 150,
     },
     {
@@ -117,9 +129,7 @@ const AllOrderList = () => {
     ]);
   };
 
-  const getDate = (dates: any, dateString: any) => {
-    console.log("_dates-=>", dates);
-    console.log("dateString-=>", dateString);
+  const getDate = (_dates: any, dateString: any) => {
     if (dateString) {
       setParams([{ name: "deliveryDate", value: dateString }]);
     } else {
@@ -142,6 +152,11 @@ const AllOrderList = () => {
           </Divider>
         </div>
         <div className="flex gap-2 items-center ">
+          <DatePicker
+            className="md:w-[250px]"
+            format="YYYY-MM-DD"
+            onChange={getDate}
+          />
           <div className="w-[250px]">
             <Input
               type="text"
@@ -154,11 +169,6 @@ const AllOrderList = () => {
               }
             />
           </div>
-          <DatePicker
-            className="w-[350px]"
-            format="YYYY-MM-DD"
-            onChange={getDate}
-          />
         </div>
       </div>
       <Table
