@@ -4,6 +4,7 @@ import {
   Button,
   Divider,
   Table,
+  DatePicker,
   TableColumnsType,
   Input,
   Popconfirm,
@@ -19,8 +20,12 @@ import {
 import { handlePrint } from "./Orders.constant";
 
 const AllOrderList = () => {
-  const [params, setParams] = useState([{ name: "limit", value: 10 }]);
+  const [params, setParams] = useState<Record<string, unknown>[]>([
+    { name: "limit", value: 10 },
+  ]);
   const { data, isLoading } = useGetAllOrderQuery(params);
+  console.log("data--=>", data);
+
   const [deleteOrder] = useDeleteOrderMutation();
   // const [updateModalOpen, setUpdateModalOpen] = useState(false);
   // const [orderData, setOrderData] = useState<TOrderFormValues | null>(null);
@@ -112,6 +117,19 @@ const AllOrderList = () => {
     ]);
   };
 
+  const getDate = (dates: any, dateString: any) => {
+    console.log("_dates-=>", dates);
+    console.log("dateString-=>", dateString);
+    if (dateString) {
+      setParams([{ name: "deliveryDate", value: dateString }]);
+    } else {
+      setParams([
+        { name: "page", value: 1 },
+        { name: "limit", value: 10 },
+      ]);
+    }
+  };
+
   const meta = data?.data?.meta;
   const result = data?.data?.result;
 
@@ -123,16 +141,23 @@ const AllOrderList = () => {
             All Orders
           </Divider>
         </div>
-        <div className="w-[250px]">
-          <Input
-            type="text"
-            placeholder="Search"
-            onChange={(e: any) =>
-              setParams([
-                { name: "searchTerm", value: e.target.value },
-                { name: "limit", value: 10 },
-              ])
-            }
+        <div className="flex gap-2 items-center ">
+          <div className="w-[250px]">
+            <Input
+              type="text"
+              placeholder="Search"
+              onChange={(e: any) =>
+                setParams([
+                  { name: "searchTerm", value: e.target.value },
+                  { name: "limit", value: 10 },
+                ])
+              }
+            />
+          </div>
+          <DatePicker
+            className="w-[350px]"
+            format="YYYY-MM-DD"
+            onChange={getDate}
           />
         </div>
       </div>

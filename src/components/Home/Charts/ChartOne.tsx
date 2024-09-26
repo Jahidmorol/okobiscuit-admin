@@ -4,10 +4,8 @@ import ReactApexChart from "react-apexcharts";
 import { useGetOrderDataQuery } from "../../../redux/features/meta/metaApi";
 
 const ChartOne = () => {
-  const [duration, setDuration] = useState("all");
-  const { data, error } = useGetOrderDataQuery(duration);
-
-  console.log("error--=>", error);
+  const [duration, setDuration] = useState("year");
+  const { data } = useGetOrderDataQuery(duration);
 
   const options: ApexOptions = {
     colors: ["#0a8848", "#80CAEE"],
@@ -135,6 +133,7 @@ const ChartOne = () => {
         </div>
         <div className="flex w-full max-w-45 justify-end">
           <div className="inline-flex items-center rounded-md bg-whiter gap-2 *:rounded-md *:py-1 *:px-3 *:text-xs *:bg-primary *:text-white [&_*:hover]:bg-primary/80">
+            <button onClick={() => setDuration("all")}>All</button>
             <button onClick={() => setDuration("year")}>12 Months</button>
             <button onClick={() => setDuration("month")}>30 Days</button>
             <button onClick={() => setDuration("week")}>7 Days</button>

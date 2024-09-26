@@ -34,6 +34,8 @@ export default function Login() {
       toast.success("Logged In successful!", { id: toastId, duration: 2000 });
       navigate(`/${user.role}/dashboard`);
     } catch (error: any) {
+      console.log("error", error);
+
       toast.error(error?.data?.message || "Something went wrong!", {
         id: toastId,
       });

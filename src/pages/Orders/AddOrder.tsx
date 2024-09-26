@@ -10,6 +10,7 @@ const AddOrder = () => {
   if (token !== null && typeof token === "string") {
     user = verifyToken(token);
   }
+
   return (
     <>
       <section className="flex items-center justify-between">

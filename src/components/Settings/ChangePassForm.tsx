@@ -5,7 +5,6 @@ import { toast } from "sonner";
 import { TChangePass } from "../../types/changPass.type";
 import { useChangePasswordMutation } from "../../redux/features/auth/authApi";
 import { useNavigate } from "react-router-dom";
-import { passwordRules } from "../Users/userConstant";
 
 const ChangePassForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -77,8 +76,11 @@ const ChangePassForm = () => {
                 <Form.Item
                   label="New Password"
                   name="newPassword"
+                  extra="provide at least 8 characters"
                   tooltip="Here you have to input your new Password."
-                  rules={passwordRules}
+                  rules={[
+                    { required: true, message: "Password is required", min: 8 },
+                  ]}
                   hasFeedback
                 >
                   <Input.Password
@@ -93,6 +95,7 @@ const ChangePassForm = () => {
                   label="Confirm Password"
                   name="confirmPassword"
                   tooltip="Here you have to input your Confirm Password."
+                  extra="provide at least 8 characters"
                   dependencies={["newPassword"]}
                   hasFeedback
                   validateTrigger={["onChange", "onBlur"]}
@@ -104,7 +107,7 @@ const ChangePassForm = () => {
                           return Promise.resolve();
                         }
                         return Promise.reject(
-                          new Error("The two passwords do not match!"),
+                          new Error("The two passwords do not match!")
                         );
                       },
                     }),

@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { TOrderFormValues, TOrderItem } from "../../types/order.type";
 import { useAddOrderMutation } from "../../redux/features/order/orderApi";
 import { MinusCircleOutlined } from "@ant-design/icons";
+import { format } from "date-fns";
 
 const ProductAddForm = () => {
   const [form] = Form.useForm();
@@ -64,6 +65,13 @@ const ProductAddForm = () => {
   const onFinish = async (values: TOrderFormValues) => {
     const toastId = toast.loading("Adding Order...");
     try {
+      // Format the date
+      if (values.deliveryDate) {
+        values.deliveryDate = format(
+          new Date(values.deliveryDate),
+          "yyyy-MM-dd"
+        );
+      }
       const res = await addOrder(values).unwrap();
 
       if (res?.success) {
